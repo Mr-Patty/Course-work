@@ -18,10 +18,21 @@ namespace Mul_lib {
         // cout << len << endl;
         vector<long long> res(2 * len);
 
+        // for (auto i = 0; i < len; ++i) {
+        //     for (auto j = 0; j < len; ++j) {
+        //         res[i + j] += x[i] * y[j];
+        //
+        //     }
+        // }
+
         for (auto i = 0; i < len; ++i) {
+            int carry = 0;
             for (auto j = 0; j < len; ++j) {
-                res[i + j] += x[i] * y[j];
+                res[i + j] += carry + x[i] * y[j];
+                carry = res[i + j] / base; // base -  база представления числа
+                res[i + j] %= base;
             }
+            res[i + len] += carry;
         }
 
         return res;
@@ -84,19 +95,31 @@ namespace Mul_lib {
 
         is >> snum;
         int i = atoi( snum.c_str() );
-        cout << (i >> 2) << endl;
-        // for ()
 
-        for (auto it = snum.crbegin(); it != snum.crend(); ++it) {
-            n += (*it - '0') * dig;
-            dig *= dig_size;
-
-            if (dig == base) {
-                vnum.push_back(n);
-                n = 0;
-                dig = 1;
-            }
+        // cout << i << endl;
+        // cout << snum << endl;
+        // std::bitset<> b2(i);
+        // cout << b2[1] << ' ' << b2 << endl;
+        while (i) {
+          n = i % 2;
+          i /= 2;
+          vnum.push_back(n);
         }
+        // reverse(vnum.begin(), vnum.end());
+        n = 0;
+
+        // for (auto it = snum.crbegin(); it != snum.crend(); ++it) {
+        //   // cout << *it << endl;
+        //     n += (*it - '0') * dig;
+        //     // cout << n << endl;
+        //     dig *= dig_size;
+        //
+        //     if (dig == base) {
+        //         vnum.push_back(n);
+        //         n = 0;
+        //         dig = 1;
+        //     }
+        // }
 
         if (n != 0) {
             vnum.push_back(n);
@@ -140,14 +163,16 @@ namespace Mul_lib {
             if (num < add_zero) {
                 z = 1;
 
-                while ((num *= dig_size) < add_zero) {
+                while ( (num *= dig_size) < add_zero) {
                     ++z;
+                    // cout << *it << endl;
                 }
             }
 
             if (z > 0) {
                 while (z--) {
                     os << '0';
+                    // cout << 'b' << endl;
                 }
             }
             os << *it++;
@@ -156,10 +181,20 @@ namespace Mul_lib {
         os << endl;
     }
 
+    std::vector<long long int> random_vector(int k) {
+        std::vector<long long int> res;
+        for (int i = 0; i < k; i++) {
+            res.push_back(rand() % 2);
+        }
+        return res;
+    }
+
     void print_vec(const vector<long long>& v) {
         size_t pos = 0;
         for (auto& i : v) {
             cout << "v[" << pos++ << "]: " << i << endl;
         }
     }
+
+
 }

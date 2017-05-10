@@ -12,9 +12,11 @@ functions for helping in result representation.
 
 #include <vector>
 #include <iostream>
+#include <bitset>
+#include <algorithm>
 
 namespace Mul_lib {
-    /*!    
+    /*!
     Naive multiplication algorithm. Does multiplication like we all got used to:
     12 * 23 =   12
               x 23
@@ -28,13 +30,13 @@ namespace Mul_lib {
     \return Product of multiplication
     */
     std::vector<long long> naive_mul(const std::vector<long long>& x, const std::vector<long long>& y);
-    /*!    
+    /*!
     Karatsuba multiplication algorithm. Uses idea of divide and conquer algorithm.
     More information about it you could find here https://en.wikipedia.org/wiki/Karatsuba_algorithm
     It has ~O(n^1.59) complexity
     \param  x,y Two long integers
     \return Product of multiplication
-    */    
+    */
     std::vector<long long> karatsuba_mul(const std::vector<long long>& x, const std::vector<long long>& y);
     /*!
     Get a long integer from input stream
@@ -65,11 +67,13 @@ namespace Mul_lib {
     v[0] %= 100
         |0| 1|2 |3|
     v = {0,10,23,1}
-    
+
     \param [out] v long integer which will be extented to size of the closest power of two
     \param [in] len length according to it will be extended
     */
     void finalize(std::vector<long long>& res);
     void print_vec(const std::vector<long long>& v);
+
+    std::vector<long long int> random_vector(int k);
 } // Mul_lib
 #endif // MUL_LIB_HPP
