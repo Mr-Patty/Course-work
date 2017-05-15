@@ -22,57 +22,50 @@ int main() {
     }
     first = get_number(ifs);
     second = get_number(ifs);
-    // print_vec(first);
-    // print_vec(second);
-    // print_res(first, std::cout);
-    // cout << first.size() << endl;
-    // print_res(second, std::cout);
 
     auto n = max(first.size(), second.size());
-    // cout << n << endl;
 
     extend_vec(first, n);
     extend_vec(second, n);
-    // cout << first[] << endl;
+
     // print_vec(first);
-    // cout << endl;
-    // print_vec(second);
+
 
     clock_t t;
-    t = clock();
-
-    res = naive_mul(first, second);
-    // print_vec(res);
-    finalize(res);
-    // print_vec(res);
-    t = clock() - t;
-
-    print_res(res, ofs);
-
-    f = static_cast<float> (t) / CLOCKS_PER_SEC;
-
-    cout << "Naive algorithm took me " << t << " cycles (" <<
-    std::fixed << std::setprecision(6) << f << " seconds)\n";
-    // printf("%lf", f);
-    // print_vec(first);
-    // cout << endl;
-    // print_vec(second);
-    // cout << endl;
-    t = clock();
-    res = karatsuba_mul(first, second);
-    finalize(res);
-
-    t = clock() - t;
-    // print_vec(res);
+    // t = clock();
     //
-    // // print_vec(res);
-    print_res(res, ofs);
-    f = static_cast<float> (t) / CLOCKS_PER_SEC;
-    cout << "Karatsuba algorithm took me " <<
-     t << " cycles (" << std::setprecision(6) << f << " seconds)\n";
+    // res = naive_mul(first, second);
+    //
+    // t = clock() - t;
+    //
+    // print_res(res, ofs);
+    //
+    // f = static_cast<float> (t) / CLOCKS_PER_SEC;
+    //
+    // cout << "Naive algorithm took me " << t << " cycles (" <<
+    // std::fixed << std::setprecision(6) << f << " seconds)\n";
 
-    long long int m = 100;
-    int k = 10000;
+    // int num = 118;
+
+    // std::ostringstream ost;
+    // ost << num;
+    // std::cout << ost.str().size() << endl;
+
+    // t = clock();
+    // res = karatsuba_mul(first, second);
+    // finalize(res);
+    //
+    // t = clock() - t;
+    //
+    // print_res(res, ofs);
+    //
+    // f = static_cast<float> (t) / CLOCKS_PER_SEC;
+    // cout << "Karatsuba algorithm took me " <<
+    //  t << " cycles (" << std::setprecision(6) << f << " seconds)\n";
+
+    long long int m = 500;
+    int k;
+    cin >> k;
     clock_t Tn = 0, Tk = 0;
     vector<long long> A, B;
     A.reserve(k);
@@ -88,17 +81,17 @@ int main() {
         extend_vec(A, n);
         extend_vec(B, n);
 
-        // t = clock();
-        // res = naive_mul(A, B);
+        t = clock();
+        res = naive_mul(A, B);
         // finalize(res);
-        // t = clock() - t;
-        // Tn += t;
+        t = clock() - t;
+        Tn += t;
         //
-        // t = clock();
-        // res = karatsuba_mul(A, B);
-        // finalize(res);
-        // t = clock() - t;
-        // Tk += t;
+        t = clock();
+        res = karatsuba_mul(A, B);
+        finalize(res);
+        t = clock() - t;
+        Tk += t;
         // cout << t << endl;
         // for(int i = 0; i < A.size(); i++)
         //     cout << A[i] << ' ';
@@ -108,29 +101,17 @@ int main() {
         // cout << endl;
         // print_vec(res2);
     }
-    // for(int i = 0; i < A.size(); i++)
-    //     cout << A[i] << ' ';
-    // cout << endl;
-    // for(int i = 0; i < B.size(); i++)
-    //     cout << B[i] << ' ';
-    // cout << endl;
     // print_vec(res);
 
-    // double Ts = Tn / m;
-    // f = static_cast<float> (Ts) / CLOCKS_PER_SEC;
-    // // print_vec(A);
-    // // print_vec(B);
-    // // cout << endl;
-    // // print_vec(res);
-    // print_res(res, ofs);
-    //
-    // cout << "Naive algorithm took me " << Ts << " cycles (" <<
-    // std::fixed << std::setprecision(6) << f << " seconds)\n";
-    //
-    // double Tks = Tk / m;
-    // f = static_cast<float> (Tks) / CLOCKS_PER_SEC;
-    // cout << "Karatsuba algorithm took me " <<
-    //  Tks << " cycles (" << std::setprecision(6) << f << " seconds)\n";
+    double Ts = Tn / m;
+    f = static_cast<float> (Ts) / CLOCKS_PER_SEC;
+    cout << "Naive algorithm took me " << Ts << " cycles (" <<
+    std::fixed << std::setprecision(6) << f << " seconds)\n";
+
+    double Tks = Tk / m;
+    f = static_cast<float> (Tks) / CLOCKS_PER_SEC;
+    cout << "Karatsuba algorithm took me " <<
+     Tks << " cycles (" << std::setprecision(6) << f << " seconds)\n";
 
 
     return 0;

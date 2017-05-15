@@ -7,7 +7,7 @@ namespace Mul_lib {
     constexpr int base = 2;
     // lenght of the long number for which naive multiplication
     // will be called in the Karatsuba function
-    constexpr unsigned int len_f_naive = 1;
+    constexpr unsigned int len_f_naive = 2;
     // One digit size for numbers with bases multiple of ten
     constexpr int dig_size = 2;
     // How much zeroes have to be in the number
@@ -37,6 +37,18 @@ namespace Mul_lib {
 
         return res;
     }
+
+    // long long int karatsuba_mul(const long long int x, const long long int y, int len) {
+    //
+    //     long long int res = 0;
+    //
+    //     if (len == 1) {
+    //       return x * y;
+    //     }
+    //     long long int X_l =
+    //
+    //     return res;
+    // }
 
     vector<long long> karatsuba_mul(const vector<long long>& x, const vector<long long>& y) {
         auto len = x.size();
@@ -100,26 +112,26 @@ namespace Mul_lib {
         // cout << snum << endl;
         // std::bitset<> b2(i);
         // cout << b2[1] << ' ' << b2 << endl;
-        while (i) {
-          n = i % 2;
-          i /= 2;
-          vnum.push_back(n);
-        }
-        // reverse(vnum.begin(), vnum.end());
-        n = 0;
-
-        // for (auto it = snum.crbegin(); it != snum.crend(); ++it) {
-        //   // cout << *it << endl;
-        //     n += (*it - '0') * dig;
-        //     // cout << n << endl;
-        //     dig *= dig_size;
-        //
-        //     if (dig == base) {
-        //         vnum.push_back(n);
-        //         n = 0;
-        //         dig = 1;
-        //     }
+        // while (i) {
+        //   n = i % 2;
+        //   i /= 2;
+        //   vnum.push_back(n);
         // }
+        // reverse(vnum.begin(), vnum.end());
+        // n = 0;
+
+        for (auto it = snum.crbegin(); it != snum.crend(); ++it) {
+          // cout << *it << endl;
+            n += (*it - '0') * dig;
+            // cout << n << endl;
+            dig *= dig_size;
+
+            if (dig == base) {
+                vnum.push_back(n);
+                n = 0;
+                dig = 1;
+            }
+        }
 
         if (n != 0) {
             vnum.push_back(n);
