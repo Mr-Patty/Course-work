@@ -14,26 +14,26 @@ namespace Mul_lib {
     constexpr int add_zero = base / dig_size;
 
     vector<long long> naive_mul(const vector<long long>& x, const vector<long long>& y) {
-        auto len = x.size();
+        auto len = max(x.size(), y.size());
         // cout << len << endl;
         vector<long long> res(2 * len);
 
-        // for (auto i = 0; i < len; ++i) {
-        //     for (auto j = 0; j < len; ++j) {
-        //         res[i + j] += x[i] * y[j];
-        //
-        //     }
-        // }
+        for (auto i = 0; i < x.size(); ++i) {
+            for (auto j = 0; j < y.size(); ++j) {
+                res[i + j] += x[i] * y[j];
 
-        for (auto i = 0; i < len; ++i) {
-            int carry = 0;
-            for (auto j = 0; j < len; ++j) {
-                res[i + j] += carry + x[i] * y[j];
-                carry = res[i + j] / base; // base -  база представления числа
-                res[i + j] %= base;
             }
-            res[i + len] += carry;
         }
+
+        // for (auto i = 0; i < x.size(); ++i) {
+        //     int carry = 0;
+        //     for (auto j = 0; j < y.size(); ++j) {
+        //         res[i + j] += carry + x[i] * y[j];
+        //         carry = res[i + j] / base; // base -  база представления числа
+        //         res[i + j] %= base;
+        //     }
+        //     res[i + len] += carry;
+        // }
 
         return res;
     }
